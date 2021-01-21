@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let s = "hello"
-        let s2 = s.capitalized
-        print(s2)
+    }
+    
+    var player: AVAudioPlayer!
+    
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "mp3")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
     }
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,7 +28,7 @@ class ViewController: UIViewController {
     
 //    Dictionary
     let eggTimes=[
-        "Soft": 300,
+        "Soft": 3,
         "Medium": 420,
         "Hard": 720
     ]
@@ -59,6 +64,7 @@ class ViewController: UIViewController {
         }else{
             timer.invalidate()
             titleLabel.text="DONE!"
+            playSound(soundName: "alarm_sound")
         }
     }
     
